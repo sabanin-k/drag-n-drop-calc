@@ -1,9 +1,8 @@
 import { Button, Grid } from '@chakra-ui/react'
-import React from 'react'
 
 export const Numbers = () => {
     return (
-        <Grid templateColumns='repeat(3, 1fr)' gridGap={2} w={240} p={1} bg={'white'} boxShadow={'md'} >
+        <Grid templateColumns='repeat(3, 1fr)' gridGap={2} w={240} p={1} bg={'white'} boxShadow={'md'} draggable>
             <Button variant={'outline'} _focus={{outline: 'none'}} h={12}>7</Button>
             <Button variant={'outline'} _focus={{outline: 'none'}} h={12}>8</Button>
             <Button variant={'outline'} _focus={{outline: 'none'}} h={12}>9</Button>

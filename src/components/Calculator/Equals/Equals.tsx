@@ -1,7 +1,7 @@
 import { Box, Button } from '@chakra-ui/react'
 
 export const Equals = () => {
-    return <Box w={'240px'} h={'72px'} p={1} shadow={'md'}>
+    return <Box w={'240px'} h={'72px'} p={1} shadow={'md'} draggable>
         <Button
             w={'232px'}
             h={'64px'}

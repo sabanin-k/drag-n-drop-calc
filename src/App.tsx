@@ -1,10 +1,10 @@
 import { Flex } from '@chakra-ui/react';
 import { Buttons } from './components/Calculator/Buttons/Buttons';
-import { Numbers } from './components/Calculator/Numbers/Numbers';
 import { Display } from './components/Calculator/Display/Display';
-import { Field } from './components/Field/Field';
-import { Toggler } from './components/Toggler/Toggler';
 import { Equals } from './components/Calculator/Equals/Equals';
+import { Numbers } from './components/Calculator/Numbers/Numbers';
+import { FieldContainer } from './components/Field/FieldContainer';
+import { Toggler } from './components/Toggler/Toggler';
 
 const App = () => {
     return <Flex justifyContent={'center'} alignItems={'center'} gap={14}>
@@ -16,7 +16,7 @@ const App = () => {
         </Flex>
         <Flex direction={'column'} align={'center'} gap={4}>
             <Toggler />
-            <Field />
+            <FieldContainer />
         </Flex>
     </Flex>
 }
