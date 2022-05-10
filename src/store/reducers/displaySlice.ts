@@ -1,3 +1,4 @@
+/* eslint-disable no-eval */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export const displaySlice = createSlice({

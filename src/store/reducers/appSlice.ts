@@ -4,13 +4,13 @@ export const appSlice = createSlice({
     name: 'appSlice',
     initialState: {
         isInitialized: false,
-        toggle: 'RUNTIME' || 'CONSTRUCTOR'
+        toggle: false
     },
     reducers: {
         setInitialization(state) {
             state.isInitialized = true
         },
-        setToggle(state, action: PayloadAction<'RUNTIME' | 'CONSTRUCTOR'>) {
+        setToggle(state, action: PayloadAction<boolean>) {
             state.toggle = action.payload
         }
     }

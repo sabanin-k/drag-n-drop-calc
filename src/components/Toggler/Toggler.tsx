@@ -10,10 +10,10 @@ export const Toggler = () => {
     const { setToggle } = appSlice.actions
     const toggle = useSelector(getToggle)
 
-    const toggleToRuntime = () => dispatch(setToggle('RUNTIME'))
-    const toggleToConstructor = () => dispatch(setToggle('CONSTRUCTOR'))
+    const toggleToRuntime = () => dispatch(setToggle(true))
+    const toggleToConstructor = () => dispatch(setToggle(false))
 
-    return toggle === 'CONSTRUCTOR'
-        ? <Constructor toggleToRuntime={toggleToRuntime} />
-        : <Runtime toggleToConstructor={toggleToConstructor} />
+    return toggle
+        ? <Runtime toggleToConstructor={toggleToConstructor} />
+        : <Constructor toggleToRuntime={toggleToRuntime} />
 }
