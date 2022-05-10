@@ -1,19 +1,32 @@
-import { Button, Grid } from '@chakra-ui/react'
+import { Box, Button, Grid } from '@chakra-ui/react';
+import { FC } from 'react';
 
-export const Numbers = () => {
+export const Numbers: FC<Props> = ({ displayNumber }) => {
+    const buttons = [] as any[];
+    [7, 8, 9, 4, 5, 6, 1, 2, 3].forEach(buttonNumber => {
+        buttons.push(
+            <Button variant={'outline'}
+                    _focus={{outline: 'none'}}
+                    h={12}
+                    value={buttonNumber}
+                    key={buttonNumber}
+                    onClick={displayNumber}>
+                        {buttonNumber}
+            </Button>
+        )
+    })
     return (
-        <Grid templateColumns='repeat(3, 1fr)' gridGap={2} w={240} p={1} bg={'white'} boxShadow={'md'} draggable>
-            <Button variant={'outline'} _focus={{outline: 'none'}} h={12}>7</Button>
-            <Button variant={'outline'} _focus={{outline: 'none'}} h={12}>8</Button>
-            <Button variant={'outline'} _focus={{outline: 'none'}} h={12}>9</Button>
-            <Button variant={'outline'} _focus={{outline: 'none'}} h={12}>4</Button>
-            <Button variant={'outline'} _focus={{outline: 'none'}} h={12}>5</Button>
-            <Button variant={'outline'} _focus={{outline: 'none'}} h={12}>6</Button>
-            <Button variant={'outline'} _focus={{outline: 'none'}} h={12}>1</Button>
-            <Button variant={'outline'} _focus={{outline: 'none'}} h={12}>2</Button>
-            <Button variant={'outline'} _focus={{outline: 'none'}} h={12}>3</Button>
-            <Button variant={'outline'} _focus={{outline: 'none'}} h={12} gridColumnStart={1} gridColumnEnd={3}>0</Button>
-            <Button variant={'outline'} _focus={{outline: 'none'}} h={12}>,</Button>
-        </Grid>
+        <Box w={240} p={1} boxShadow={'md'} draggable display={'flex'} flexDirection={'column'} gap={2}>
+            <Grid templateColumns='repeat(3, 1fr)' gridGap={2} w={232}>{buttons}</Grid>
+            <Grid templateColumns='repeat(3, 1fr)' gridGap={2}>
+                <Button onClick={displayNumber} value='0' variant={'outline'} _focus={{outline: 'none'}} h={12} gridColumnStart={1} gridColumnEnd={3}>0</Button>
+                <Button onClick={displayNumber} value=',' variant={'outline'} _focus={{outline: 'none'}} h={12}>,</Button>
+            </Grid>
+        </Box>
     )
+}
+
+
+interface Props{
+    displayNumber: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
