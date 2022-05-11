@@ -10,24 +10,23 @@ export const Numbers: FC<Props> = ({ displayNumber, isToggled }) => {
                 h={12}
                 value={buttonNumber}
                 key={buttonNumber}
-                onClick={displayNumber}
-                disabled={!isToggled} >
+                onClick={displayNumber} >
                     {buttonNumber}
             </Button>
         )
     })
     return (
-        <Box w={240} p={1} boxShadow={'md'} draggable={!isToggled} display={'flex'} flexDirection={'column'} gap={2}>
+        <Box w={240} p={1} draggable={!isToggled} display={'flex'}
+            flexDirection={'column'} gap={2} cursor={!isToggled ? 'pointer' : 'auto'} >
             <Grid templateColumns='repeat(3, 1fr)' gridGap={2} w={232}>{buttons}</Grid>
             <Grid templateColumns='repeat(3, 1fr)' gridGap={2}>
                 <Button onClick={displayNumber} value='0' variant={'outline'}
                     _focus={{ outline: 'none' }} h={12} gridColumnStart={1}
-                    gridColumnEnd={3} disabled={!isToggled} >
+                    gridColumnEnd={3} >
                     0
                 </Button>
                 <Button onClick={displayNumber} value=',' variant={'outline'}
-                    _focus={{ outline: 'none' }} h={12}
-                    disabled={!isToggled} >
+                    _focus={{ outline: 'none' }} h={12} >
                     ,
                 </Button>
             </Grid>

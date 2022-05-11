@@ -1,10 +1,12 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { appReducer } from "./reducers/appSlice";
 import { displayReducer } from "./reducers/displaySlice";
+import { constructorReducer } from "./reducers/constructorSlice";
 
 const rootReducer = combineReducers({
     appReducer,
-    displayReducer
+    displayReducer,
+    constructorReducer
 })
 
 export const setupStore = () => {

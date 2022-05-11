@@ -1,22 +1,16 @@
-import { Flex } from '@chakra-ui/react';
-import { ButtonsContainer } from './components/Calculator/Buttons/ButtonsContainer';
-import { DisplayContainer } from './components/Calculator/Display/DisplayContainer';
-import { EqualsContainer } from './components/Calculator/Equals/EqualsContainer';
-import { NumbersContainer } from './components/Calculator/Numbers/NumbersContainer';
-import { FieldContainer } from './components/Field/FieldContainer';
+import { Box, Flex } from '@chakra-ui/react';
+import { AppArray } from './components/AppArray/AppArray';
+import { DropFieldContainer } from './components/DropField/DropFieldContainer';
 import { Toggler } from './components/Toggler/Toggler';
 
 const App = () => {
-    return <Flex justifyContent={'center'} alignItems={'center'} gap={14}>
-        <Flex justifyContent={'center'} alignItems={'center'} flexDirection={'column'} h={'100vh'} gap={4}>
-            <DisplayContainer />
-            <ButtonsContainer />
-            <NumbersContainer />
-            <EqualsContainer />
+    return <Flex justify={'center'} align={'center'} gap={14}>
+        <Flex justify={'center'} align={'center'} direction={'column'} h={'100vh'} gap={4}>
+            { AppArray.map(arr => <Box shadow={'md'}> {arr} </Box>) }
         </Flex>
-        <Flex direction={'column'} align={'center'} gap={4}>
+        <Flex justify={'center'} align={'center'} direction={'column'} gap={4}>
             <Toggler />
-            <FieldContainer />
+            <DropFieldContainer />
         </Flex>
     </Flex>
 }

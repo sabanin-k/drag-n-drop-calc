@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux'
-import { useAppDispatch } from '../../hooks/redux'
+import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { appSlice } from '../../store/reducers/appSlice'
 import { getToggle } from '../../store/selectors/appSelector'
 import { Constructor } from './Constructor/Constructor'
