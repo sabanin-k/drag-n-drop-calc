@@ -1,11 +1,11 @@
-import { ButtonsContainer } from "../Calculator/Buttons/ButtonsContainer";
+import { SignesContainer } from "../Calculator/Signes/SignesContainer";
 import { DisplayContainer } from "../Calculator/Display/DisplayContainer";
 import { EqualsContainer } from "../Calculator/Equals/EqualsContainer";
-import { NumbersContainer } from "../Calculator/Numbers/NumbersContainer";
+import { DigitsContainer } from "../Calculator/Digits/DigitsContainer";
 
 export const AppArray = [
-    <DisplayContainer key={'display'} />,
-    <ButtonsContainer key={'buttons'} />,
-    <NumbersContainer key={'number'} />,
-    <EqualsContainer key={'equals'} />
+    <DisplayContainer />,
+    <SignesContainer />,
+    <DigitsContainer />,
+    <EqualsContainer />
 ]

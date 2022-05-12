@@ -1,25 +1,25 @@
 import { Button, SimpleGrid } from '@chakra-ui/react';
 import { FC } from 'react';
 
-export const Buttons: FC<Props> = ({ displaySign, isToggled }) => {
+export const Signes: FC<Props> = ({ setSignHandler, isToggled }) => {
     const buttons = [] as any[];
+
     ['/', 'x', '-', '+'].forEach(button => {
         buttons.push(<Button 
-                        onClick={displaySign}
+                        onClick={setSignHandler}
                         variant={'outline'}
                         _focus={{outline: 'none'}}
                         h={12}
+                        cursor={!isToggled ? 'move' : 'auto'}
                         key={button}
-                        value={button === 'x'
-                                ? '*'
-                                : button}
+                        value={button}
                         >
                             {button}
                     </Button>)
     })
 
     return (
-        <SimpleGrid templateColumns={'repeat(4, 1fr)'} gap={2} p={1} w={'240px'} cursor={!isToggled ? 'pointer' : 'auto'} >
+        <SimpleGrid templateColumns={'repeat(4, 1fr)'} gap={2} p={1} w={'240px'} cursor={!isToggled ? 'move' : 'auto'} >
             {buttons}
         </SimpleGrid>
     )
@@ -27,6 +27,6 @@ export const Buttons: FC<Props> = ({ displaySign, isToggled }) => {
 
 
 interface Props{
-    displaySign: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+    setSignHandler: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
     isToggled: boolean
 }

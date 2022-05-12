@@ -1,11 +1,11 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { appReducer } from "./reducers/appSlice";
-import { displayReducer } from "./reducers/displaySlice";
+import { runtimeReducer } from "./reducers/runtimeSlice";
 import { constructorReducer } from "./reducers/constructorSlice";
 
 const rootReducer = combineReducers({
     appReducer,
-    displayReducer,
+    runtimeReducer,
     constructorReducer
 })
 

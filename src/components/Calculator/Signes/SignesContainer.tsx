@@ -2,18 +2,18 @@ import { Box } from '@chakra-ui/react'
 import { useSelector } from 'react-redux'
 import { useAppDispatch } from '../../../hooks/useAppDispatch'
 import { constructorSlice } from '../../../store/reducers/constructorSlice'
-import { displaySlice } from '../../../store/reducers/displaySlice'
+import { runtimeSlice } from '../../../store/reducers/runtimeSlice'
 import { getToggle } from '../../../store/selectors/appSelector'
-import { Buttons } from './Buttons'
+import { Signes } from './Signes'
 
-export const ButtonsContainer = () => {
+export const SignesContainer = () => {
     const dispatch = useAppDispatch()
     const isToggled = useSelector(getToggle)
     const { setDraggedComponent } = constructorSlice.actions
-    const { setValue } = displaySlice.actions
+    const { setSign } = runtimeSlice.actions
 
-    const displaySign = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        isToggled && dispatch(setValue(e.currentTarget.value))
+    const setSignHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        isToggled && dispatch(setSign(e.currentTarget.value))
     }
 
     const dragStartHandler = () => {
@@ -21,6 +21,6 @@ export const ButtonsContainer = () => {
     }
 
     return <Box onDragStart={dragStartHandler} draggable={!isToggled}>
-        <Buttons displaySign={displaySign} isToggled={isToggled} />
+        <Signes setSignHandler={setSignHandler} isToggled={isToggled} />
     </Box>
 }
