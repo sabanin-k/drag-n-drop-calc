@@ -25,7 +25,7 @@ export const DropFieldContainer = () => {
     }
 
     const dropHandler = () => {
-        setFieldArray([...fieldArray, AppArray[+componentID]])
+        !fieldArray.includes(AppArray[+componentID]) && setFieldArray([...fieldArray, AppArray[+componentID]])
         dispatch(setDraggedComponent(0))
     }
 

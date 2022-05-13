@@ -10,8 +10,8 @@ const App = () => {
 
     return <Flex justify={'center'} align={'center'} gap={14}>
         <Flex justify={'center'} align={'center'} direction={'column'} h={'100vh'} gap={4}>
-            {/* { !isToggled ? AppArray.map((arr, index) => <Box key={index} shadow={'md'}> {arr} </Box>) : <Box w={240} /> } */}
-            { AppArray.map((arr, index) => <Box key={index} shadow={'md'}> {arr} </Box>) }
+            { !isToggled ? AppArray.map((arr, index) => <Box key={index} shadow={'md'}> {arr} </Box>) : <Box w={240} /> }
+            {/* { AppArray.map((arr, index) => <Box key={index} shadow={'md'}> {arr} </Box>) } */}
         </Flex>
         <Flex justify={'center'} align={'center'} direction={'column'} gap={4}>
             <Toggler />
