@@ -10,7 +10,6 @@ export const Operators: FC<Props> = ({ setSignHandler, isToggled }) => {
                         variant={'outline'}
                         _focus={{outline: 'none'}}
                         h={12}
-                        cursor={!isToggled ? 'move' : 'auto'}
                         key={button}
                         value={button}
                         >
@@ -19,7 +18,7 @@ export const Operators: FC<Props> = ({ setSignHandler, isToggled }) => {
     })
 
     return (
-        <SimpleGrid templateColumns={'repeat(4, 1fr)'} gap={2} p={1} w={'240px'} cursor={!isToggled ? 'move' : 'auto'} >
+        <SimpleGrid templateColumns={'repeat(4, 1fr)'} gap={2} p={1} w={'240px'} >
             {buttons}
         </SimpleGrid>
     )

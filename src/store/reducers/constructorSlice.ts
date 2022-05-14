@@ -18,6 +18,9 @@ export const constructorSlice = createSlice({
                     state.draggedComponent
                 ]
             }
+        },
+        removeElementFromField(state, action: PayloadAction<number>) {
+            state.fieldArray = state.fieldArray.filter(elemID => elemID !== action.payload)            
         }
     }
 })
