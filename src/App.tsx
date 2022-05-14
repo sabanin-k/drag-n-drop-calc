@@ -1,12 +1,12 @@
 import { Box, Flex } from '@chakra-ui/react';
-import { useSelector } from 'react-redux';
 import { AppArray } from './components/AppArray/AppArray';
 import { DropFieldContainer } from './components/DropField/DropFieldContainer';
 import { Toggler } from './components/Toggler/Toggler';
+import { useAppSelector } from './hooks/useAppSelector';
 import { getToggle } from './store/selectors/appSelector';
 
 const App = () => {
-    const isToggled = useSelector(getToggle)
+    const isToggled = useAppSelector(getToggle)
 
     return <Flex justify={'center'} align={'center'} gap={14}>
         <Flex justify={'center'} align={'center'} direction={'column'} h={'100vh'} gap={4}>

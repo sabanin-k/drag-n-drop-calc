@@ -1,4 +1,3 @@
-/* eslint-disable no-eval */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export const runtimeSlice = createSlice({
@@ -6,7 +5,7 @@ export const runtimeSlice = createSlice({
     initialState: {
         x: '',
         y: '',
-        sign: '',
+        operator: '',
         finish: false,
         value: '',
         dropped: false
@@ -18,40 +17,63 @@ export const runtimeSlice = createSlice({
         setDropped(state) {
             state.dropped = true
         },
-        setSign(state, action: PayloadAction<string>) {
-            state.sign = action.payload
+        setOperator(state, action: PayloadAction<string>) {
+            if (state.x !== '') {
+                state.operator = action.payload                
+            }
         },
         setNumber(state, action: PayloadAction<string>) {
-            if (state.y === '' && state.sign === '') {
-                if (action.payload === '.' && state.x.includes('.')){
+            // set first operand
+            if (state.y === '' && state.operator === '') {
+                // already has ',' push nothing
+                if (action.payload === '.' && state.x.includes('.')) {
                     state.x += ''
                 } else {
+                    // press ',' before another digit
+                    if (action.payload === '.' && state.x === '') {
+                        state.x += '0'
+                    }
                     state.x += action.payload
-                    state.value = state.x.toString().replace('.', ',')
+                    state.value = state.x.replace('.', ',')
                 }
-            } else if (state.x !== '' && state.y !== '' && state.finish) {
-                state.y = action.payload
+            } 
+
+            // change second operand after pressed equals button;
+            // infinite '='
+            else if (state.x !== '' && state.y !== '' && state.finish) {
+                state.y = ''
+                if (action.payload === '.' && state.y === '') {
+                    state.y += '0.'
+                } else {
+                    state.y = action.payload
+                }
                 state.finish = false
-                state.value = state.y.toString().replace('.', ',')
-            } else {
+                state.value = state.y.replace('.', ',')
+            }
+
+            // set second operand
+            else {
                 if (action.payload === '.' && state.y.includes('.')) {
                     state.y += ''
                 } else {
+                    if (action.payload === '.' && state.y === '') {
+                        state.y += '0'
+                    }
                     state.y += action.payload
-                    state.value = state.y.toString().replace('.', ',')
+                    state.value = state.y.replace('.', ',')
                 }
             }
             return
         },
         getEquals(state) {
-            if (state.sign === '') {
+            if (state.operator === '' || state.x === '') {
                 return
             }
-            if (state.y === null) {
+            if (state.y === '') {
                 state.y = state.x
             }
             if (state.x !== '' && state.y !== '') {
-                switch (state.sign) {
+                switch (state.operator) {
                     case '+':
                         state.x = (+state.x + +state.y).toString()
                         break;
@@ -66,7 +88,7 @@ export const runtimeSlice = createSlice({
                             state.value = 'Не определено'
                             state.x = ''
                             state.y = ''
-                            state.sign = ''
+                            state.operator = ''
                             return
                         }
                         state.x = (+state.x / +state.y).toString()
@@ -77,16 +99,27 @@ export const runtimeSlice = createSlice({
             }
             state.finish = true;
 
-            if (state.x.length > 13) { // rounding up
+            const isFloatAndToLong = +state.x % 1 !== 0 && state.x.length > 13
+            if (isFloatAndToLong) { // rounding up
                 if (Number(state.x.slice(13, 14)) > 5) {
                     state.x = (state.x.slice(0, 12) + (Number(state.x.slice(13, 14)) + 1))
                 } else {
                     state.x = (state.x.slice(0, 13))
                 }
             }
-            console.log(state.x);
-            
-            state.value = parseFloat(state.x).toString().replace('.', ',')
+
+            const isHasAnExponent = state.x.includes('e')
+            if (isHasAnExponent) {
+                const roundNumberWithExp = (numberToRound: string): number => {
+                    const [before, after] = numberToRound.split('e');
+                    return +`${Number(before).toFixed(2)}e${after}`;
+                };
+                state.x = roundNumberWithExp(state.x).toString()
+            } else {
+                state.x = parseFloat(state.x).toString()
+            }
+
+            state.value = state.x.replace('.', ',')
         }
     }
 })

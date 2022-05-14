@@ -1,7 +1,7 @@
 import { Button, SimpleGrid } from '@chakra-ui/react';
 import { FC } from 'react';
 
-export const Signes: FC<Props> = ({ setSignHandler, isToggled }) => {
+export const Operators: FC<Props> = ({ setSignHandler, isToggled }) => {
     const buttons = [] as any[];
 
     ['/', 'x', '-', '+'].forEach(button => {

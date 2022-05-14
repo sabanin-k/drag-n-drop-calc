@@ -1,18 +1,17 @@
 import { Box } from '@chakra-ui/react';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { useAppSelector } from '../../hooks/useAppSelector';
 import { constructorSlice } from '../../store/reducers/constructorSlice';
-import { getComponentID } from '../../store/selectors/constructorSelector';
-import { AppArray } from '../AppArray/AppArray';
+import { getFieldArray } from '../../store/selectors/constructorSelector';
 import { DropField } from './DropField';
 
 export const DropFieldContainer = () => {
     const dispatch = useAppDispatch()
     const { setDraggedComponent } = constructorSlice.actions
+    const { dropElementOnField } = constructorSlice.actions
     const [dragOver, setDragOver] = useState(false)
-    const [fieldArray, setFieldArray] = useState([] as JSX.Element[])
-    const componentID = useSelector(getComponentID)
+    const fieldArray = useAppSelector(getFieldArray)
 
     const dragOverHandler = (event: React.DragEvent<HTMLDivElement>) => {
         event.preventDefault()
@@ -25,7 +24,7 @@ export const DropFieldContainer = () => {
     }
 
     const dropHandler = () => {
-        !fieldArray.includes(AppArray[+componentID]) && setFieldArray([...fieldArray, AppArray[+componentID]])
+        dispatch(dropElementOnField())
         dispatch(setDraggedComponent(0))
     }
 

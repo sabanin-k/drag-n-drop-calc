@@ -1,7 +1,8 @@
 import { Box, Flex, Text } from '@chakra-ui/react'
 import { FC } from 'react'
 
-export const Display: FC<IProps> = ({ displayValue, isToggled }) => {
+export const Display: FC<IProps> = ({ displayValue, isToggled, fieldArray }) => {
+    
     return (
         <Flex justify={'center'} align={'center'} w={'240px'} p={1} draggable={!isToggled}>
 
@@ -23,5 +24,6 @@ export const Display: FC<IProps> = ({ displayValue, isToggled }) => {
 
 interface IProps {
     displayValue: string
-    isToggled?: boolean
+    isToggled: boolean
+    fieldArray: number[]
 }

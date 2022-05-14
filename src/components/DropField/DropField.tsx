@@ -1,5 +1,6 @@
 import { Flex, Text } from '@chakra-ui/react';
 import { FC } from 'react';
+import { AppArray } from '../AppArray/AppArray';
 import dndImage from '../../assets/dragndrop.png';
 
 
@@ -19,7 +20,7 @@ export const DropField: FC<IProps> = ({ dragOver, fieldArray }) => {
             </Flex>
         </Flex>
         : <Flex direction={'column'} h={'480px'} gap={4} >
-            {fieldArray.map(arr => arr)}
+            {fieldArray.map(number => AppArray[number])}
         </Flex>
 }
 
