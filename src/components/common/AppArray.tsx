@@ -4,8 +4,8 @@ import { EqualsContainer } from "../Calculator/Equals/EqualsContainer";
 import { DigitsContainer } from "../Calculator/Digits/DigitsContainer";
 
 export const AppArray = [
-    <DisplayContainer />,
-    <OperatorsContainer />,
-    <DigitsContainer />,
-    <EqualsContainer />
+    {id: 'display', item: <DisplayContainer />},
+    {id: 'operators', item: <OperatorsContainer />},
+    {id: 'digits', item: <DigitsContainer />},
+    {id: 'equals', item: <EqualsContainer />}
 ]

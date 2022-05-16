@@ -1,11 +1,20 @@
 import { Box, Flex, Text } from '@chakra-ui/react';
 import { FC } from 'react';
-import { AppArray } from '../AppArray/AppArray';
+import { AppArray } from '../common/AppArray';
 import dndImage from '../../assets/dragndrop.png';
+import { DropIndicator } from '../common/DropIndicator';
 
-
-export const DropField: FC<Props> = ({ dragOver, fieldArray, isToggle, removeElementHandler }) => {
-
+export const DropField: FC<Props> = ({
+    plugDragOver,
+    fieldArray,
+    isToggle,
+    dragedComponent,
+    hoveredComponentIndex,
+    dragStartHandler,
+    removeElementHandler,
+    componentDragOverHandler,
+    componentDragLeaveHandler
+}) => {
     return fieldArray.length === 0
 
         ? <Flex justify={'center'}
@@ -13,7 +22,7 @@ export const DropField: FC<Props> = ({ dragOver, fieldArray, isToggle, removeEle
             w={'240px'} h={'480px'}
             direction={'column'}
             border={'2px dashed #C4C4C4'}
-            backgroundColor={dragOver ? '#F0F9FF' : 'white'}>
+            backgroundColor={plugDragOver ? '#F0F9FF' : 'white'}>
                 <img src={dndImage} alt="dnd" />
 
                 <Flex justify={'center'} align={'center'} direction={'column'} gap={1}>
@@ -24,18 +33,39 @@ export const DropField: FC<Props> = ({ dragOver, fieldArray, isToggle, removeEle
         </Flex>
 
         : <Flex direction={'column'} h={'480px'} gap={4} >
-            {fieldArray.map(number => <Box draggable cursor={'move'} onDoubleClick={() => !isToggle && removeElementHandler(number)} >
-                    {AppArray[number]}
-                </Box>
-            )}
+            {fieldArray.map((componentID, index) => {
 
+                const isIndicator = hoveredComponentIndex === index && hoveredComponentIndex !== 0
+                const isTopIndicator = fieldArray.findIndex(component => component === dragedComponent) > hoveredComponentIndex
+                const isBottomIndicator = fieldArray.findIndex(component => component === dragedComponent) < hoveredComponentIndex
+                const componentIndex = AppArray.findIndex(component => component.id === componentID)
+                
+                return <>
+                    {isIndicator && isTopIndicator && <DropIndicator key={index} />}
+                    <Box key={componentID} draggable={!isToggle && componentID !== 'display'} cursor={!isToggle ? 'move' : 'auto'}
+                                onDoubleClick={() => !isToggle && removeElementHandler(componentID)}
+                                onDragEnter={() => componentDragOverHandler(index)}
+                                onDragStart={() => dragStartHandler(componentID)}
+                                onDragExit={componentDragLeaveHandler} >
+                        {AppArray[componentIndex].item}
+                    </Box>
+                    {isIndicator && isBottomIndicator && <DropIndicator key={index} />}
+                </>
+                }
+            )}
+            {dragedComponent && fieldArray.length !== 4 && <DropIndicator />}
         </Flex>
 }
 
 
 interface Props {
-    dragOver: boolean
+    plugDragOver: boolean
     isToggle: boolean
-    fieldArray: any[]
-    removeElementHandler: (elemID: number) => void
+    fieldArray: string[]
+    dragedComponent: string
+    hoveredComponentIndex: number
+    dragStartHandler: (elemID: string) => void
+    removeElementHandler: (elemID: string) => void
+    componentDragOverHandler: (elemID: number) => void
+    componentDragLeaveHandler: () => void
 }
