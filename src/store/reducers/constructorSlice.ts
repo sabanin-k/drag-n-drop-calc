@@ -10,29 +10,24 @@ export const constructorSlice = createSlice({
     reducers: {
         setDraggedComponent(state, action: PayloadAction<string>) {
             state.draggedComponent = action.payload
-            console.log('dragged ' + state.draggedComponent);
         },
         resetDraggedComponent(state) {
             state.draggedComponent = ''
-            // console.log('dragged reset' + state.draggedComponent);
         },
         setHoveredComponentIndex(state, action: PayloadAction<string>) {
             state.hoveredComponent = action.payload
-            console.log('hovered ' + state.hoveredComponent);
         },
         resetHoveredComponent(state) {
             state.hoveredComponent = ''
-            // console.log('drag reset');        
         },
         dropElementOnField(state) {
-            const draggedComponentIndex = state.dropArray.findIndex(component => component === state.draggedComponent)
-            console.log('draggedComponentIndex ' + draggedComponentIndex);
-            
+            const draggedComponentIndex = state.dropArray.findIndex(component => component === state.draggedComponent)          
 
             state.dropArray = state.dropArray.filter(componentIndex => componentIndex !== state.draggedComponent)
             
             let hoveredComponentIndex = state.dropArray.findIndex(component => component === state.hoveredComponent)
-            if (hoveredComponentIndex === -1) hoveredComponentIndex = 10 // component wasn't in dropArray; needs 10 for push component 
+            if (hoveredComponentIndex === -1) hoveredComponentIndex = state.dropArray.length + 1
+            // component wasn't in dropArray; needs >3 to push component to the bottom
 
             if (draggedComponentIndex > hoveredComponentIndex || draggedComponentIndex === -1) {
                 // drag from bottom to top or first drop
@@ -49,7 +44,6 @@ export const constructorSlice = createSlice({
                 ]
             }
 
-            // reset state
             state.draggedComponent = ''
             state.hoveredComponent = ''
         },

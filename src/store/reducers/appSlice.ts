@@ -3,17 +3,16 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 export const appSlice = createSlice({
     name: 'appSlice',
     initialState: {
-        isInitialized: false,
-        toggle: false
+        isRuntime: false
     },
     reducers: {
-        setInitialization(state) {
-            state.isInitialized = true
-        },
-        setToggle(state, action: PayloadAction<boolean>) {
-            state.toggle = action.payload
+        setToggleToRuntime(state, action: PayloadAction<boolean>) {
+            state.isRuntime = action.payload
         }
     }
 })
 
 export const appReducer = appSlice.reducer
+export const {
+    setToggleToRuntime
+} = appSlice.actions

@@ -2,7 +2,7 @@ import { Box } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useAppSelector } from '../../hooks/useAppSelector';
-import { getToggle } from '../../store/selectors/appSelector';
+import { getRuntimeToggler } from '../../store/selectors/appSelector';
 import { getDragComponentID, getDropArray, getHoveredComponent } from '../../store/selectors/constructorSelector';
 import { DropField } from './DropField';
 import {
@@ -15,7 +15,7 @@ import {
 
 export const DropFieldContainer = () => {
     const dispatch = useAppDispatch()
-    const isToggle = useAppSelector(getToggle)
+    const isRuntime = useAppSelector(getRuntimeToggler)
     const fieldArray = useAppSelector(getDropArray)
     const dragedComponent = useAppSelector(getDragComponentID)
     const hoveredComponent = useAppSelector(getHoveredComponent)
@@ -61,7 +61,7 @@ export const DropFieldContainer = () => {
         >
             <DropField plugDragOver={plugDragOver}
                 fieldArray={fieldArray}
-                isToggle={isToggle}
+                isRuntime={isRuntime}
                 dragedComponent={dragedComponent}
                 hoveredComponent={hoveredComponent}
                 dragStartHandler={dragStartHandler}

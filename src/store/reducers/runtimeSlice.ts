@@ -36,7 +36,7 @@ export const runtimeSlice = createSlice({
                     state.x += action.payload
                     // pressed 0 but do not press ','
                     if (state.x[0] === '0' && action.payload === '0' && !state.x.includes('.')) {
-                        state.x = ''
+                        state.x = '0'
                     }
                     state.value = state.x.replace('.', ',')
                 }
@@ -65,7 +65,7 @@ export const runtimeSlice = createSlice({
                     }
                     state.y += action.payload
                     if (state.y[0] === '0' && action.payload === '0' && !state.y.includes('.')) {
-                        state.y = ''
+                        state.y = '0'
                     }
                     state.value = state.y.replace('.', ',')
                 }
@@ -132,3 +132,10 @@ export const runtimeSlice = createSlice({
 })
 
 export const runtimeReducer = runtimeSlice.reducer
+export const {
+    setValue,
+    setDropped,
+    setOperator,
+    setNumber,
+    getEquals
+} = runtimeSlice.actions

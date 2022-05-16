@@ -7,11 +7,13 @@ export const Operators: FC<Props> = ({ setSignHandler, isToggled }) => {
     ['/', 'x', '-', '+'].forEach(button => {
         buttons.push(<Button 
                         onClick={setSignHandler}
-                        variant={'outline'}
-                        _focus={{outline: 'none'}}
-                        h={12}
                         key={button}
                         value={button}
+                        h={12}
+                        variant={'outline'}
+                        _hover={{bg: 'white'}}
+                        _focus={{outline: 'none'}}
+                        cursor={isToggled ? 'pointer' : 'move'}
                         >
                             {button}
                     </Button>)

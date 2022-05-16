@@ -1,13 +1,13 @@
 import { FC } from 'react';
 import { Box, Flex, Text } from '@chakra-ui/react';
-import { dragArray } from '../common/DragArray';
-import { DropIndicator } from '../common/DropIndicator';
+import { componentsList } from '../../data/componentsList';
+import { DropIndicator } from './DropIndicator';
 import dndImage from '../../assets/dragndrop.png';
 
 export const DropField: FC<Props> = ({
     plugDragOver,
     fieldArray,
-    isToggle,
+    isRuntime,
     dragedComponent,
     hoveredComponent,
     dragStartHandler,
@@ -52,34 +52,33 @@ export const DropField: FC<Props> = ({
 
                 {fieldArray.map((componentID) => {
                     const showIndicator = hoveredComponent === componentID
-                    const componentIndex = dragArray.findIndex(component => component.id === componentID)
+                    const componentIndex = componentsList.findIndex(component => component.id === componentID)
 
                     return (
-                        <>
+                        <Box key={componentID}>
                             {(showIndicator && showTopIndicator() && !isHoveredDisplay && !isDragDisplay)
-                                && <DropIndicator key={Date()} />}
+                                && <DropIndicator key={Math.random()} />}
 
                             <Box
-                                key={componentID}
-                                draggable={!isToggle && componentID !== 'display'}
-                                cursor={!isToggle ? 'move' : 'auto'}
-                                onDoubleClick={() => !isToggle && removeElementHandler(componentID)}
+                                draggable={!isRuntime && componentID !== 'display'}
+                                cursor={!isRuntime && componentID !== 'display' ? 'move' : 'auto'}
+                                onDoubleClick={() => !isRuntime && removeElementHandler(componentID)}
                                 onDragEnter={() => componentDragOverHandler(componentID)}
                                 onDragStart={() => dragStartHandler(componentID)}
                                 onDragEnd={componentDragLeaveHandler}
                             >
-                                {dragArray[componentIndex].item}
+                                {componentsList[componentIndex].item}
                             </Box>
 
                             {((showIndicator && showBottomIndicator() && !isDragDisplay)
                                 || (isHoveredDisplay && componentID === 'display'))
-                                && <DropIndicator key={Date()} />}
-                        </>
+                                && <DropIndicator key={Math.random()} />}
+                        </Box>
                     )
                 }
                 )}
 
-                {dragedComponent && !isDragDisplay && fieldArray.length !== 4 && hoveredComponent === '' && <DropIndicator />}
+                {dragedComponent && !isDragDisplay && fieldArray.length !== 4 && hoveredComponent === '' && <DropIndicator key={Math.random()} />}
 
             </Flex>
     )
@@ -88,7 +87,7 @@ export const DropField: FC<Props> = ({
 
 interface Props {
     plugDragOver: boolean
-    isToggle: boolean
+    isRuntime: boolean
     fieldArray: string[]
     dragedComponent: string
     hoveredComponent: string

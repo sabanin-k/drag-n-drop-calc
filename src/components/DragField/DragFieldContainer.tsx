@@ -1,14 +1,14 @@
 import { useAppDispatch } from '../../hooks/useAppDispatch'
 import { useAppSelector } from '../../hooks/useAppSelector'
 import { resetDraggedComponent, setDraggedComponent } from '../../store/reducers/constructorSlice'
-import { getToggle } from '../../store/selectors/appSelector'
+import { getRuntimeToggler } from '../../store/selectors/appSelector'
 import { getDropArray } from '../../store/selectors/constructorSelector'
-import { dragArray } from '../common/DragArray'
+import { componentsList } from '../../data/componentsList'
 import { DragField } from './DragField'
 
 export const DragFieldContainer = () => {
     const dispatch = useAppDispatch()
-    const isToggled = useAppSelector(getToggle)
+    const isRuntime = useAppSelector(getRuntimeToggler)
     const dropArray = useAppSelector(getDropArray)
 
     const setDraggedComponentHandler = (id: string) => {
@@ -19,8 +19,8 @@ export const DragFieldContainer = () => {
         dispatch(resetDraggedComponent())
     }
 
-    return <DragField dragArray={dragArray}
-                    isToggled={isToggled}
+    return <DragField dragArray={componentsList}
+                    isRuntime={isRuntime}
                     dropArray={dropArray}
                     setDraggedComponentHandler={setDraggedComponentHandler}
                     resetDraggedComponentHandler={resetDraggedComponentHandler} />
