@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { getToggle } from '../../store/selectors/appSelector';
-import { getDragComponentID, getFieldArray, getHoveredComponentIndex } from '../../store/selectors/constructorSelector';
+import { getDragComponentID, getDropArray, getHoveredComponent } from '../../store/selectors/constructorSelector';
 import { DropField } from './DropField';
 import {
     dropElementOnField,
@@ -16,9 +16,9 @@ import {
 export const DropFieldContainer = () => {
     const dispatch = useAppDispatch()
     const isToggle = useAppSelector(getToggle)
-    const fieldArray = useAppSelector(getFieldArray)
+    const fieldArray = useAppSelector(getDropArray)
     const dragedComponent = useAppSelector(getDragComponentID)
-    const hoveredComponentIndex = useAppSelector(getHoveredComponentIndex)
+    const hoveredComponent = useAppSelector(getHoveredComponent)
 
     const [plugDragOver, setPlugDragOver] = useState(false)
 
@@ -31,7 +31,7 @@ export const DropFieldContainer = () => {
         setPlugDragOver(true)
     };
 
-    const componentDragOverHandler = (componentIndex: number) => {
+    const componentDragOverHandler = (componentIndex: string) => {
         dispatch(setHoveredComponentIndex(componentIndex))
     }
 
@@ -53,18 +53,21 @@ export const DropFieldContainer = () => {
         dispatch(removeElementFromField(componentID))
     }
 
-    return <Box onDragOver={(event) => dragOverHandler(event)}
-                onDragLeave={(event) => dragLeaveHandler(event)}
-                onDragEnd={(event) => dragLeaveHandler(event)}
-                onDrop={dropHandler} >
-        <DropField plugDragOver={plugDragOver}
-            fieldArray={fieldArray}
-            isToggle={isToggle}
-            dragedComponent={dragedComponent}
-            hoveredComponentIndex={hoveredComponentIndex}
-            dragStartHandler={dragStartHandler}
-            removeElementHandler={removeElementHandler}
-            componentDragOverHandler={componentDragOverHandler}
-            componentDragLeaveHandler={componentDragLeaveHandler} />
-    </Box>
+    return (
+        <Box onDragOver={(event) => dragOverHandler(event)}
+            onDragLeave={(event) => dragLeaveHandler(event)}
+            onDragEnd={(event) => dragLeaveHandler(event)}
+            onDrop={dropHandler}
+        >
+            <DropField plugDragOver={plugDragOver}
+                fieldArray={fieldArray}
+                isToggle={isToggle}
+                dragedComponent={dragedComponent}
+                hoveredComponent={hoveredComponent}
+                dragStartHandler={dragStartHandler}
+                removeElementHandler={removeElementHandler}
+                componentDragOverHandler={componentDragOverHandler}
+                componentDragLeaveHandler={componentDragLeaveHandler} />
+        </Box>
+    )
 }

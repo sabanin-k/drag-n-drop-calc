@@ -4,8 +4,8 @@ export const constructorSlice = createSlice({
     name: 'constructorSlice',
     initialState: {
         draggedComponent: '',
-        hoveredComponentIndex: 10,
-        fieldArray: [] as string[]
+        hoveredComponent: '',
+        dropArray: [] as string[]
     },
     reducers: {
         setDraggedComponent(state, action: PayloadAction<string>) {
@@ -14,33 +14,47 @@ export const constructorSlice = createSlice({
         },
         resetDraggedComponent(state) {
             state.draggedComponent = ''
+            // console.log('dragged reset' + state.draggedComponent);
         },
-        setHoveredComponentIndex(state, action: PayloadAction<number>) {
-            state.hoveredComponentIndex = action.payload
-            console.log('hovered ' + state.hoveredComponentIndex);
+        setHoveredComponentIndex(state, action: PayloadAction<string>) {
+            state.hoveredComponent = action.payload
+            console.log('hovered ' + state.hoveredComponent);
         },
         resetHoveredComponent(state) {
-            state.hoveredComponentIndex = 10
-            console.log('drag reset');            
+            state.hoveredComponent = ''
+            // console.log('drag reset');        
         },
         dropElementOnField(state) {
-            // const isComponentInArray = state.fieldArray.includes(state.draggedComponent)
-            state.fieldArray = state.fieldArray.filter(componentIndex => componentIndex !== state.draggedComponent)
-            state.fieldArray.splice(state.hoveredComponentIndex, 0, state.draggedComponent)
+            const draggedComponentIndex = state.dropArray.findIndex(component => component === state.draggedComponent)
+            console.log('draggedComponentIndex ' + draggedComponentIndex);
+            
 
-            if (state.fieldArray.includes('display')) {
-                state.fieldArray = [
+            state.dropArray = state.dropArray.filter(componentIndex => componentIndex !== state.draggedComponent)
+            
+            let hoveredComponentIndex = state.dropArray.findIndex(component => component === state.hoveredComponent)
+            if (hoveredComponentIndex === -1) hoveredComponentIndex = 10 // component wasn't in dropArray; needs 10 for push component 
+
+            if (draggedComponentIndex > hoveredComponentIndex || draggedComponentIndex === -1) {
+                // drag from bottom to top or first drop
+                state.dropArray.splice(hoveredComponentIndex, 0, state.draggedComponent)
+            } else {
+                // drag from top to bottom
+                state.dropArray.splice(hoveredComponentIndex + 1, 0, state.draggedComponent)
+            }
+
+            if (state.dropArray.includes('display')) {
+                state.dropArray = [
                     'display',
-                    ...state.fieldArray.filter(componentID => componentID !== 'display')
+                    ...state.dropArray.filter(componentID => componentID !== 'display')
                 ]
             }
 
             // reset state
             state.draggedComponent = ''
-            state.hoveredComponentIndex = 10
+            state.hoveredComponent = ''
         },
         removeElementFromField(state, action: PayloadAction<string>) {
-            state.fieldArray = state.fieldArray.filter(elemID => elemID !== action.payload)
+            state.dropArray = state.dropArray.filter(elemID => elemID !== action.payload)
         }
     }
 })
