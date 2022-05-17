@@ -19,7 +19,10 @@ export const runtimeSlice = createSlice({
         },
         setOperator(state, action: PayloadAction<string>) {
             if (state.x !== '') {
-                state.operator = action.payload                
+                state.operator = action.payload              
+            }
+            if (state.x !== '' && state.y !== '') {
+                state.y = ''
             }
         },
         setNumber(state, action: PayloadAction<string>) {
