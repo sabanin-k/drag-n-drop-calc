@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/drag-n-drop-calc/static/js/main.e34c914f.js",
+    "main.js": "/drag-n-drop-calc/static/js/main.e4a6bb9b.js",
     "index.html": "/drag-n-drop-calc/index.html",
-    "main.e34c914f.js.map": "/drag-n-drop-calc/static/js/main.e34c914f.js.map"
+    "main.e4a6bb9b.js.map": "/drag-n-drop-calc/static/js/main.e4a6bb9b.js.map"
   },
   "entrypoints": [
-    "static/js/main.e34c914f.js"
+    "static/js/main.e4a6bb9b.js"
   ]
 }
