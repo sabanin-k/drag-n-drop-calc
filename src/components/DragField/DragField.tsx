@@ -1,19 +1,30 @@
-import { Box, Flex } from "@chakra-ui/react"
 import { FC } from "react"
-import { DragArray } from "../../data/componentsList"
+import { Box, Flex } from "@chakra-ui/react"
+import { componentsList } from "../../data/componentsList"
+import { useAppDispatch } from "../../hooks/useAppDispatch"
+import { useAppSelector } from "../../hooks/useAppSelector"
+import { getRuntimeToggler } from "../../store/selectors/appSelector"
+import { getDropArray } from "../../store/selectors/constructorSelector"
+import { resetDraggedComponent, setDraggedComponent } from "../../store/reducers/constructorSlice"
 
-export const DragField: FC<Props> = ({
-    dragArray,
-    isRuntime,
-    dropArray,
-    setDraggedComponentHandler,
-    resetDraggedComponentHandler
-}) => {
+export const DragField: FC = () => {
+    const dispatch = useAppDispatch()
+    const isRuntime = useAppSelector(getRuntimeToggler)
+    const dropArray = useAppSelector(getDropArray)
+
+    const setDraggedComponentHandler = (id: string) => {
+        dispatch(setDraggedComponent(id))
+    }
+
+    const resetDraggedComponentHandler = () => {
+        dispatch(resetDraggedComponent())
+    }
+
     return (
         <Flex direction={'column'} gap={4} >
             {isRuntime
                 ? <Box w={240} />
-                : dragArray.map((component) =>
+                : componentsList.map((component) =>
                     <Box
                         key={component.id}
                         shadow={'md'}
@@ -28,13 +39,4 @@ export const DragField: FC<Props> = ({
                 )}
         </Flex>
     )
-}
-
-
-type Props = {
-    dragArray: DragArray
-    isRuntime: boolean
-    dropArray: string[]
-    setDraggedComponentHandler: (id: string) => void
-    resetDraggedComponentHandler: () => void
 }

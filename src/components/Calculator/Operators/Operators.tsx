@@ -1,19 +1,30 @@
-import { Button, SimpleGrid } from '@chakra-ui/react';
 import { FC } from 'react';
+import { Button, SimpleGrid } from '@chakra-ui/react';
+import { useAppDispatch } from '../../../hooks/useAppDispatch';
+import { useAppSelector } from '../../../hooks/useAppSelector';
+import { setOperator } from '../../../store/reducers/runtimeSlice';
+import { getRuntimeToggler } from '../../../store/selectors/appSelector';
 
-export const Operators: FC<Props> = ({ setSignHandler, isToggled }) => {
-    const buttons = [] as any[];
+export const Operators: FC = () => {
+    const dispatch = useAppDispatch()
+    const isRuntime = useAppSelector(getRuntimeToggler)
+
+    const setOperatorHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        isRuntime && dispatch(setOperator(e.currentTarget.value))
+    }
+
+    const buttons = [] as JSX.Element[];
 
     ['/', 'x', '-', '+'].forEach(button => {
         buttons.push(<Button 
-                        onClick={setSignHandler}
+                        onClick={setOperatorHandler}
                         key={button}
                         value={button}
                         h={12}
                         variant={'outline'}
                         _hover={{bg: 'white'}}
                         _focus={{outline: 'none'}}
-                        cursor={isToggled ? 'pointer' : 'move'}
+                        cursor={isRuntime ? 'pointer' : 'move'}
                         >
                             {button}
                     </Button>)
@@ -24,10 +35,4 @@ export const Operators: FC<Props> = ({ setSignHandler, isToggled }) => {
             {buttons}
         </SimpleGrid>
     )
-}
-
-
-interface Props{
-    setSignHandler: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
-    isToggled: boolean
 }

@@ -1,13 +1,13 @@
-import { OperatorsContainer } from "../components/Calculator/Operators/OperatorsContainer";
-import { DisplayContainer } from "../components/Calculator/Display/DisplayContainer";
-import { EqualsButtonContainer } from "../components/Calculator/EqualsButton/EqualsButtonContainer";
-import { DigitsContainer } from "../components/Calculator/Digits/DigitsContainer";
+import Display from "../components/Calculator/Display";
+import Operators from "../components/Calculator/Operators";
+import Digits from "../components/Calculator/Digits";
+import EqualsButton from "../components/Calculator/EqualsButton";
 
 export const componentsList = [
-    {id: 'display', item: <DisplayContainer />},
-    {id: 'operators', item: <OperatorsContainer />},
-    {id: 'digits', item: <DigitsContainer />},
-    {id: 'equals', item: <EqualsButtonContainer />}
+    {id: 'display', item: <Display />},
+    {id: 'operators', item: <Operators />},
+    {id: 'digits', item: <Digits />},
+    {id: 'equals', item: <EqualsButton />}
 ]
 
 export type DragArray = typeof componentsList

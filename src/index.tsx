@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { setupStore } from './store/store';
 import { ChakraProvider } from '@chakra-ui/react';
 import { theme } from './theme';
-import App from './App';
+import App from './components/App';
 
 const store = setupStore()
 
